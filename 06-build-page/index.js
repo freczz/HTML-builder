@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const ncp = require('ncp').ncp
 
 //создание папки project-dist
 async function createDir() {
@@ -9,9 +8,20 @@ async function createDir() {
 }
 //копирование файлов из assets в project-dist
 async function copyAssets() {
-   fs.rm(path.join(__dirname, 'project-dist/assets'), { recursive: true }, (err) => {
-      ncp(path.join(__dirname, 'assets'), path.join(__dirname, 'project-dist/assets'), (err) => { if (err) throw err })
-   })
+   const folders = await fs.promises.readdir(path.join(__dirname, 'assets/'))
+   for (const folder of folders) {
+      await fs.promises.mkdir(path.join(__dirname, 'project-dist/assets/', folder, '/'), { recursive: true })
+
+      const filesCopy = await fs.promises.readdir(path.join(__dirname, 'project-dist/assets', folder, '/'))
+      for (fileCopy of filesCopy) {
+         fs.unlink(path.join(__dirname, `project-dist/assets/`, folder, `/${fileCopy}`), err => { if (err) throw err })
+      }
+
+      const files = await fs.promises.readdir(path.join(__dirname, 'assets', folder, '/'))
+      for (const file of files) {
+         await fs.promises.copyFile(path.join(__dirname, 'assets', folder, '/', file), path.join(__dirname, 'project-dist/assets/', folder, '/', file))
+      }
+   }
    console.log('Папка assets успешна перенесена')
 }
 //объединение стилей в файл
