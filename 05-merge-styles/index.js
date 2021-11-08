@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path');
-const chalk = require('chalk')
 
 async function merge() {
    const items = await fs.promises.readdir(path.join(__dirname, 'styles'), { withFileTypes: true })
@@ -17,6 +16,6 @@ async function merge() {
          })
       }
    }
-   console.log(chalk.green('Файл создан'))
+   console.log('Файл создан')
 }
 merge()
