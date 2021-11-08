@@ -1,19 +1,18 @@
 const fs = require('fs')
 const path = require('path')
-const chalk = require('chalk')
 const ncp = require('ncp').ncp
 
 //создание папки project-dist
 async function createDir() {
    fs.mkdir('06-build-page/project-dist', err => { })
-   console.log(chalk.green('Папка project-dist успешно создана и актуализирована'))
+   console.log('Папка project-dist успешно создана и актуализирована')
 }
 //копирование файлов из assets в project-dist
 async function copyAssets() {
    fs.rm(path.join(__dirname, 'project-dist/assets'), { recursive: true }, (err) => {
       ncp(path.join(__dirname, 'assets'), path.join(__dirname, 'project-dist/assets'), (err) => { if (err) throw err })
    })
-   console.log(chalk.green('Папка assets успешна перенесена'))
+   console.log('Папка assets успешна перенесена')
 }
 //объединение стилей в файл
 async function createStyle() {
@@ -30,7 +29,7 @@ async function createStyle() {
          })
       }
    }
-   console.log(chalk.green('Файл style.css с объединенными стилями успешно создан'))
+   console.log('Файл style.css с объединенными стилями успешно создан')
 }
 //создание файла index.html с разметкой из template.html
 async function createHTML() {
@@ -53,7 +52,7 @@ async function createHTML() {
       data = data.replace(`{{${item.name}}}`, fileData)
    }
    streamIndex.write(data)
-   console.log(chalk.green('Файл index.html с объединенными тегами успешно создан'))
+   console.log('Файл index.html с объединенными тегами успешно создан')
 }
 //запуск всего скрипта
 async function run() {
