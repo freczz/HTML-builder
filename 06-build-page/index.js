@@ -38,7 +38,6 @@ async function createHTML() {
    const streamTemplate = fs.createReadStream(path.join(__dirname, 'template.html'), 'utf8')
    for await (const chunk of streamTemplate) { data += chunk }
 
-
    const streamIndex = fs.createWriteStream(path.join(__dirname, '/project-dist/index.html'))
    fs.truncate(path.join(__dirname, 'project-dist/index.html'), 0, (err) => { })
 
