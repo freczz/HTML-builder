@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path');
-const chalk = require('chalk')
 
 async function copyFiles() {
    const items = await fs.promises.readdir(__dirname, { withFileTypes: true })
@@ -8,10 +7,10 @@ async function copyFiles() {
       if (!item.isFile() && item.name != path.join('files-copy')) {
          fs.mkdir('04-copy-directory/files-copy', err => {
             if (err) {
-               console.log(chalk.green('Папка успешно актуализирована'))
+               console.log('Папка успешно актуализирована')
                return
             }
-            console.log(chalk.green('Папка успешно создана и актуализирована'))
+            console.log('Папка успешно создана и актуализирована')
          })
       }
    }
