@@ -7,7 +7,7 @@ async function getFiles() {
       if (item.isFile()) {
          const file = path.join(__dirname, `secret-folder/${item.name}`)
          await fs.stat(file, async (err, data) => {
-            console.log(`<${path.parse(file).name}>-<${path.parse(file).ext.slice(1)}>-<${Math.round(data.size / 1024)}kb>`)
+            console.log(`<${path.parse(file).name}>-<${path.parse(file).ext.slice(1)}>-<${data.size / 1024}kb>`)
             console.log('----------------------')
          })
       }
